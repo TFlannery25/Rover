@@ -1,0 +1,13 @@
+{
+    "ROS2.distro": "jazzy",
+    "python.autoComplete.extraPaths": [
+        "/home/tflannery25/rover_ws/build/my_rover_nodes",
+        "/home/tflannery25/rover_ws/install/my_rover_nodes/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/tflannery25/rover_ws/build/my_rover_nodes",
+        "/home/tflannery25/rover_ws/install/my_rover_nodes/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ]
+}

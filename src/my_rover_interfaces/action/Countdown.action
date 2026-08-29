@@ -1,0 +1,5 @@
+int32 starting_number
+---
+int32 final_number
+---
+int32 current_count

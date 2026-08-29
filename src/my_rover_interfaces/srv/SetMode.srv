@@ -1,0 +1,5 @@
+string mode
+bool clear_failsafe
+---
+bool success
+string message

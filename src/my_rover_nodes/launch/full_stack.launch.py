@@ -22,8 +22,13 @@ def generate_launch_description():
     nav2_params = os.path.join(rover_config_dir, 'nav2_params.yaml')
 
     gazebo_launch = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
-        'launch', 'turtlebot3_world.launch.py')
+        get_package_share_directory('my_rover_description'),
+        'launch', 'gazebo.launch.py')
+
+    # Turtle bot launch stuff, for reference. We don't use it because we want to launch our own gazebo world and robot description.
+    #gazebo_launch = os.path.join(
+    #    get_package_share_directory('turtlebot3_gazebo'),
+    #   'launch', 'turtlebot3_world.launch.py')
 
     nav2_launch = os.path.join(
         get_package_share_directory('turtlebot3_navigation2'),

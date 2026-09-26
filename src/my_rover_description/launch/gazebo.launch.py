@@ -1,6 +1,7 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import xacro
@@ -20,12 +21,28 @@ def generate_launch_description():
         get_package_share_directory('ros_gz_sim'),
         'launch', 'gz_sim.launch.py')
 
+    world_arg = DeclareLaunchArgument(
+        'world',
+        default_value=os.path.join(pkg_share, 'worlds', 'my_world.sdf'),
+        description='Path to the world file to load'
+    )
+    world_file = LaunchConfiguration('world')
+
+    x_arg = DeclareLaunchArgument('x_pose', default_value='2.0', description='Spawn X position')
+    y_arg = DeclareLaunchArgument('y_pose', default_value='-1.3', description='Spawn Y position')
+    x_pose = LaunchConfiguration('x_pose')
+    y_pose = LaunchConfiguration('y_pose')
+
     return LaunchDescription([
 
-        # Empty Gazebo world, running (-r) rather than paused
+        world_arg,
+        x_arg,
+        y_arg,
+
+       # World, running (-r) rather than paused
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(gz_sim_launch),
-            launch_arguments={'gz_args': 'empty.sdf -r'}.items()
+            launch_arguments={'gz_args': [world_file, ' -r']}.items()
         ),
 
         # Publishes /robot_description and the TF tree, same as the display-only launch
@@ -46,6 +63,8 @@ def generate_launch_description():
                 '-topic', 'robot_description',
                 '-name', 'my_rover',
                 '-z', '0.1',
+                '-x', x_pose,
+                '-y', y_pose,
             ],
             output='screen',
         ),

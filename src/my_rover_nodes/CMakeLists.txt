@@ -44,6 +44,11 @@ ament_target_dependencies(system_mode_manager rclcpp rclcpp_action std_msgs nav2
 add_executable(safety_monitor src/safety_monitor.cpp)
 ament_target_dependencies(safety_monitor rclcpp rclcpp_action std_srvs std_msgs nav2_msgs sensor_msgs nav_msgs my_rover_interfaces)
 
+add_executable(imu_bridge src/imu_bridge.cpp)
+target_include_directories(imu_bridge PRIVATE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+ament_target_dependencies(imu_bridge rclcpp sensor_msgs)
+
 install(TARGETS
   minimal_publisher
   minimal_subscriber
@@ -53,6 +58,7 @@ install(TARGETS
   countdown_client
   system_mode_manager
   safety_monitor
+  imu_bridge
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
